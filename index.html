@@ -227,7 +227,7 @@
           <div class="column is-11">
             <h2 class="title is-3">
               <span class="small-caps" style="color: rgb(41, 62, 111)"
-                ><b>Proposed Method</b></span
+                ><b>Introduction</b></span
               >
             </h2>
 
@@ -236,13 +236,18 @@
                 class="hero-body"
                 style="display: flex; flex-direction: column; align-items: center"
               >
-                <img src="static/imgs/method.png" alt="Method" width="90%" />
+                <img src="static/imgs/intro.pdf" alt="Introduction" width="90%" />
 
               </div>
             </div>
 
             <p>
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae ultricies eget, tempor sit amet ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.
+              LLM agents now take consequential real-world actions like making bookings and modifying databases, 
+              where <strong>failures go beyond incorrect text generations to include costly or irreversible outcomes</strong>. 
+              Most existing UQ research treats LLMs as single-turn, static inference systems, 
+              which doesn't account for the multi-turn, interactive nature of agentic settings 
+              where new information is continuously acquired through interactions. 
+              We argue that <em>UQ research must shift toward these realistic agent scenarios</em>.
             </p>
           </div>
         </div>
@@ -250,18 +255,51 @@
     </section>
     <!-- End paper method -->
 
-    <!-- Image carousel -->
-    <section class="hero is-light">
+    <!-- Foundations -->
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-11">
+            <h2 class="title is-3">
+              <span class="small-caps" style="color: rgb(41, 62, 111)"
+                ><b>Foundations</b></span
+              >
+            </h2>
+
+            <div class="container is-max-desktop">
+              <div
+                class="hero-body"
+                style="display: flex; flex-direction: column; align-items: center"
+              >
+                <img src="static/imgs/pgm.png" alt="Foundations" width="90%" />
+
+              </div>
+            </div>
+
+            <p>
+              We define a stochastic agent as a sequence of actions, observations, and environment states forming a trajectory. 
+              Using a dynamic Bayesian network, the joint probability of a trajectory is factorized into per-turn components, 
+              enabling total uncertainty to be decomposed as a sum of action and observation uncertainties at each step via the chain rule under some uncertainty instances. 
+              This formulation subsumes existing single-step LLM UQ and multi-step reasoning UQ setups as special cases, 
+              providing <em>a unified theoretical lens for various UQ setups under one coherent formulation grounded in probabilistic sequential modeling</em>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Challenges -->
+    <section class="section hero">
       <div class="hero-body">
         <div class="columns is-centered has-text-centered">
-          <h2 class="title is-3">Experiments and Results</h2>
+          <h2 class="title is-3">Challenges</h2>
         </div>
         <div class="container">
           <div id="results-carousel" class="carousel results-carousel">
             <div class="item">
               <img
-                src="static/imgs/result1.png"
-                alt="main_result"
+                src="static/imgs/c1.png"
+                alt="Challenge 1"
                 width="60%"
                 style="
                   display: block;
@@ -276,14 +314,25 @@
                 style="max-width: 90%; margin: 0 auto"
               >
                 <br />
-                <b>Results on Benchmark Alpha</b>
+                <b>Selection of Uncertainty Estimator</b>
               </h2>
+              <p class="has-text-centered" style="max-width: 90%; margin: 0.5rem auto 0; font-size: 1rem;">
+                Three representative UQ methods, output probability-based, consistency-based, and verbalized confidence methods 
+                reveal clear trade-offs along three dimensions: <strong>accessibility</strong>, <strong>inference-time cost overhead</strong>, 
+                and <strong>theoretical grounding</strong>; Agentic scaffold turns these weaknesses into much more serious challenges: 
+                (1) probability-based methods cannot be applied to most frontier LLMs that centered at challenging agent benchmarks, 
+                as they do not consistently provide probability outputs; 
+                moreover, free-form long generation makes aggregated token probabilities less informative; 
+                (2) consistency-based methods become infeasible due to their prohibitively high inference cost in long-horizon, 
+                multi-turn settings; and (3) dynamically expanding context memory of agent, 
+                often coupled with noisy observations, results in increasingly inflated and unreliable verbalized confidence.
+              </p>
             </div>
 
             <div class="item">
               <img
-                src="static/imgs/result2.png"
-                alt="main_result"
+                src="static/imgs/c2.png"
+                alt="Challenge 2"
                 width="80%"
                 style="
                   display: block;
@@ -298,8 +347,79 @@
                 style="max-width: 90%; margin: 0 auto"
               >
                 <br />
-                <b>Results on Benchmark Beta</b>
+                <b>Uncertainty of Heterogeneous Entities</b>
               </h2>
+              <p class="has-text-centered" style="max-width: 90%; margin: 0.5rem auto 0; font-size: 1rem;">
+                Inference of agents involves not only the actions from the agent itself,
+                but more importantly, observations through the conversations with the <strong>user</strong> 
+                and interactions with the environment via <strong>tools</strong>. 
+                There are <em>no trivial means to estimate the uncertainty of observations 
+                  that come from these heterogeneous external entities</em> 
+                without additional assumptions on the nature of the entities, 
+                departing from the epistemic uncertainty of the agent-self. 
+              </p>
+            </div>
+
+            <div class="item">
+              <img
+                src="static/imgs/c3.png"
+                alt="Challenge 3"
+                width="80%"
+                style="
+                  display: block;
+                  margin-left: auto;
+                  margin-right: auto;
+                  border-radius: 15px;
+                  border: 2px solid;
+                "
+              />
+              <h2
+                class="subtitle has-text-centered"
+                style="max-width: 90%; margin: 0 auto"
+              >
+                <br />
+                <b>Modeling Uncertainty Dynamics in Interactive Systems</b>
+              </h2>
+              <p class="has-text-centered" style="max-width: 90%; margin: 0.5rem auto 0; font-size: 1rem;">
+                 An agent in the open environment can gather extra information, make clarifications, 
+                 and request confirmations at each step by interacting with the user and databases 
+                 through conversations and tool-calling. These interactive actions are the driving force of goal achievement 
+                 in the complex (and usually under-specified) agentic tasks in the wild. 
+                 Therefore, agent UQ should reflect <strong>conditional uncertainty reduction through information-seeking behavior as well as the uncertainty propagation</strong>. 
+                 Unfortunately, most existing multi-step UQ approaches just naively aggregate uncertainty over turns,
+                 while neglecting the interactivity of actions and conditional reducibility of uncertainty.
+              </p>
+            </div>
+
+            <div class="item">
+              <img
+                src="static/imgs/c4.png"
+                alt="Challenge 4"
+                width="80%"
+                style="
+                  display: block;
+                  margin-left: auto;
+                  margin-right: auto;
+                  border-radius: 15px;
+                  border: 2px solid;
+                "
+              />
+              <h2
+                class="subtitle has-text-centered"
+                style="max-width: 90%; margin: 0 auto"
+              >
+                <br />
+                <b>Lack of Fine-Grained Benchmarks</b>
+              </h2>
+              <p class="has-text-centered" style="max-width: 90%; margin: 0.5rem auto 0; font-size: 1rem;">
+                Annotating long-horizon agent trajectories incurs non-trivial effort and cost. 
+                The absence of fine-grained benchmarks becomes a natural bottleneck to developing a solid UQ method for agents.
+                We provide a mini-survey of existing LLM agent benchmarks, where we categorize 44 benchmarks 
+                into three classes depending on evaluation granularity: <strong>trajectory-level</strong> 
+                (conducted once at the end of the trajectory), <strong>milestone-level</strong> 
+                (involving several intermediate milestones or events), and <strong>turn-level</strong> 
+                (conducted at every single turn). Results show that fine-grained evaluation protocols are very scarce.
+              </p>
             </div>
 
           </div>
@@ -307,9 +427,62 @@
       </div>
     </section>
 
+    <!-- Future Directions --><section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-11">
+            <h2 class="title is-3">
+              <span class="small-caps" style="color: rgb(41, 62, 111)"
+                ><b>Practical Implications</b></span
+              >
+            </h2>
 
+            <div class="container is-max-desktop">
+              <div
+                class="hero-body"
+                style="display: flex; flex-direction: column; align-items: center"
+              >
+                <img src="static/imgs/opportunities.png" alt="Practical Implications" width="90%" />
+
+              </div>
+            </div>
+
+            <p>
+              Developing the agent UQ framework is not merely a theoretical exercise but a prerequisite 
+              for deploying LLM agents in non-deterministic real environments. 
+              We outline implications for <strong>frontier LLM research</strong> and three specialized domains: 
+              <strong>healthcare</strong>, <strong>software engineering</strong>, and <strong>cyber-physical systems</strong>, 
+              in which agent UQ may have profound downstream effects, 
+              thereby incentivizing policymakers, practitioners, and researchers. 
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-11">
+            <h2 class="title is-3">
+              <span class="small-caps" style="color: rgb(41, 62, 111)"
+                ><b>Open Problems</b></span
+              >
+            </h2>
+            <p>
+              Not only for the technical challenges we can specify immediately, 
+              but there is also a bundle of open problems that we need to address for the future of agent UQ: 
+              How can we distinguish the source of uncertainty under <strong>intrinsic solution multiplcity</strong>?; 
+              Is it enough to consider the <strong>task failure as solely target for uncertainty evaluation?</strong>;
+              How should we define and handle the uncertainty dynamics in <strong>multi-agent</strong> or <strong>self-evolving agent</strong> systems?
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
     <!-- Acknowledgments -->
-    <section class="section hero" id="acknowledgments">
+    <section class="section hero is-light" id="acknowledgments">
       <div class="container is-max-desktop content">
         <h2 class="title is-3">Acknowledgments</h2>
         <p>
@@ -324,14 +497,14 @@
     <section class="section" id="BibTeX">
       <div class="container is-max-desktop content">
         <h2 class="title">BibTeX</h2>
-        <pre><code>@misc{firstauthor2026lorem,
-          title={Lorem Ipsum: Dolor Sit Amet Consectetur Adipiscing Elit},
-          author={Firstauthor, Alice and Secondauthor, Bob and Thirdauthor, Carol and Fourthauthor, Dave},
-          year={2026},
-          archivePrefix={arXiv},
-          primaryClass={cs.LG},
-          url={https://arxiv.org/abs/XXXX.XXXXX}
-        }</code></pre>
+        <pre><code>
+          @article{oh2026uncertainty,
+            title={Uncertainty Quantification in LLM Agents: Foundations, Emerging Challenges, and Opportunities},
+            author={Oh, Changdae and Park, Seongheon and Kim, To Eun and Li, Jiatong and Li, Wendi and Yeh, Samuel and Du, Xuefeng and Hassani, Hamed and Bogdan, Paul and Song, Dawn and Li, Sharon},
+            journal={arXiv preprint arXiv:2602.05073},
+            year={2026}
+          }
+      </code></pre>
       </div>
     </section>
     <!--End BibTex citation -->
